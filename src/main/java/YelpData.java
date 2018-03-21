@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-public class YelpData {
+public class YelpData implements Serializable{
 
 
     String name, id, city;
@@ -101,5 +102,16 @@ public class YelpData {
         y.similarity = score;
         return score;
     }
+
+
+    @Override
+    public int hashCode(){
+        return Math.abs(this.id.hashCode()/10);
+    }
+
+    public int compareTo(YelpData o){
+        return this.hashCode() - o.hashCode();
+    }
+
 
 }
