@@ -56,8 +56,8 @@ public class Main {
         ReadJson rj = new ReadJson();
         ArrayList<YelpData> businesses = rj.readFromJsonSmall("business.json");
 
-        //write("BTreeData.txt", businesses);
-        //read("BTreeData.txt");
+        //write("keys.txt", businesses);
+        //read("keys.txt");
 
     }
 

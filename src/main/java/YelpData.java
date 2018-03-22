@@ -64,18 +64,18 @@ public class YelpData implements Serializable{
     }
 
 
-//    public int hashify(HashTable ht){
-//        int size = ht.table.length;
-//
-//        int hash = 7;
-//        char [] chars = this.name.toCharArray();
-//        for (int i =0; i<name.length(); i++) {
-//            hash = hash*137 + chars[(i)];
-//        }
-//
-//        return Math.abs(hash) & (size-1);
-//        //return Math.abs(hash) % (size);
-//    }
+    public int hashify(HashTable ht){
+        int size = ht.table.length;
+
+        int hash = 7;
+        char [] chars = this.name.toCharArray();
+        for (int i =0; i<name.length(); i++) {
+            hash = hash*137 + chars[(i)];
+        }
+
+        return Math.abs(hash) & (size-1);
+        //return Math.abs(hash) % (size);
+    }
 
     //establish similarity between this data point and other data points
     public double getSimilarity(YelpData y){
