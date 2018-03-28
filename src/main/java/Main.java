@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            String yelpFile = "business.json";
+            String yelpFile = "../business.json";
             ReadJson rj = new ReadJson();
            // ArrayList<YelpData> businesses = rj.readFromJsonSmall(yelpFile);
             HashTable ht = rj.readToHash(yelpFile);
