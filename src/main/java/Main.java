@@ -4,60 +4,37 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void write(String filename, ArrayList<YelpData> list) {
-        try {
-            FileOutputStream fo = new FileOutputStream(filename);
-            ObjectOutputStream out = new ObjectOutputStream(fo);
 
-            for (YelpData y : list) {
-                out.writeObject(y);
-
-
-            }
-            fo.close();
-            out.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("finished writing to file");
-    }
-
-    public static ArrayList<YelpData> read(String filename) {
-
-        ArrayList<YelpData> objectsRead = new ArrayList<YelpData>();
-
-        try {
-            FileInputStream fi = new FileInputStream(filename);
-            ObjectInputStream os = new ObjectInputStream(fi);
-
-
-
-            YelpData a = (YelpData)os.readObject();
-            System.out.println("just read: " + a.toString());
-            objectsRead.add(a);
-
-
-            fi.close();
-            os.close();
-
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
-
-    return objectsRead;
-
-    }
 
 
     public static void main(String[] args) {
 
-        ReadJson rj = new ReadJson();
-        ArrayList<YelpData> businesses = rj.readFromJsonSmall("business.json");
+        try {
+            String yelpFile = "business.json";
+            ReadJson rj = new ReadJson();
+           // ArrayList<YelpData> businesses = rj.readFromJsonSmall(yelpFile);
+            HashTable ht = rj.readToHash(yelpFile);
 
-        //write("keys.txt", businesses);
-        //read("keys.txt");
+            System.out.println("done reading to the hashtable");
+            System.out.println("current ht size is: " + ht.table.length);
+            System.out.println();
+
+            BTree bt = new BTree();
+            bt.insert(ht.table[3].get(0).hashCode());
+
+
+            System.out.println("done adding stuff to the btree");
+
+
+
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 
