@@ -61,7 +61,7 @@ public class BTree implements java.io.Serializable {
 
     void insert(int k) throws Exception {
         Node r = root;
-        if (root.currentNumberOfKeys == 2 * k - 1) {
+        if (root.currentNumberOfKeys == 2 * K - 1) {
             totalNumberOfNodes++;
             Node s = new Node(totalNumberOfNodes);
             root = s;
@@ -79,7 +79,7 @@ public class BTree implements java.io.Serializable {
 
     void insertNotFull(Node x, int k) throws Exception {
 
-        int i = x.currentNumberOfKeys - 1;
+        int i = x.currentNumberOfKeys-1;
         if (x.leaf == 1) {
             while (i > -1 && k < x.keys[i]) {
                 x.keys[i + 1] = x.keys[i];
@@ -96,9 +96,9 @@ public class BTree implements java.io.Serializable {
             }
 
             i++;
-            Node temp = read(x.children[i]);
+            Node temp = read(x.children[i]); // figure out why children arent being added for a certain node
 
-            if (temp.currentNumberOfKeys == 2 * K - 1) {
+            if (temp.currentNumberOfKeys == (2 * K - 1)) {
                 split(x, temp);
                 if (k > x.keys[i]) {
                     temp = read(x.children[i + 1]);

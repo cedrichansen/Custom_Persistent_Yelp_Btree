@@ -30,7 +30,7 @@ public class Main {
             BTree bt = new BTree();
             //bt.insert(ht.table[3].get(0).hashCode());
 
-            for (int i = 0; i<10; i++) {
+            for (int i = 0; i<100; i++) {
                 bt.insert(businesses.get(i).hashCode());
             }
 
