@@ -113,7 +113,7 @@ public class BTree implements java.io.Serializable {
     void split(Node x, Node y) throws IOException {
         totalNumberOfNodes++;
         Node z = new Node(totalNumberOfNodes);
-        z.leaf = 0;
+        z.leaf = y.leaf;
         for (int i = 0; i < K - 1; i++) { //move second half of y's keys to to first half of z's keys
             z.keys[i] = y.keys[i + K];
             z.currentNumberOfKeys++; //just added a key, increment numKeys
