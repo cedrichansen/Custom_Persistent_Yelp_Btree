@@ -48,14 +48,32 @@ public class BTree implements java.io.Serializable {
             i++;
         }
 
-        if (i <= n.currentNumberOfChildren && x == n.keys[i]) {
+        if (i <= n.currentNumberOfKeys && x == n.keys[i]) {
             return n.keys[i];
         } else if (n.leaf == 1) { //if not found and its a leaf, then key does not exist
             return null;
         } else {
-            //search the appropriate child node
+            //search the appropriate child node and search it
             return search(read(n.children[i]), x);
         }
+    }
+
+    boolean contains(Node n, int x) throws Exception{
+        int i = 0;
+
+        while (i < n.currentNumberOfKeys && x > n.keys[i]) {
+            i++;
+        }
+
+        if (i <= n.currentNumberOfKeys && x == n.keys[i]) {
+            return true;
+        } else if (n.leaf == 1) { //if not found and its a leaf, then key does not exist
+            return false;
+        } else {
+            //search the appropriate child node and search it
+            return contains(read(n.children[i]), x);
+        }
+
     }
 
 

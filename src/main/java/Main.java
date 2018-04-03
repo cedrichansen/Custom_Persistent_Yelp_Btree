@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Main {
@@ -8,6 +9,8 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        Scanner kb = new Scanner(System.in);
 
         try {
             String yelpFile = "../business.json";
@@ -30,13 +33,28 @@ public class Main {
             BTree bt = new BTree();
             //bt.insert(ht.table[3].get(0).hashCode());
 
-            for (int i = 0; i<169999; i++) {
+            for (int i = 0; i<170000; i++) {
                 System.out.println("Adding item: " + i);
                 bt.insert(businesses.get(i).hashCode());
             }
 
 
-            System.out.println("done adding stuff to the btree");
+            System.out.println("\ndone adding stuff to the btree\n");
+
+            System.out.println("Type a business id to see if it is contained in BTree");
+            String command = kb.nextLine();
+            while (true) {
+                YelpData temp = new YelpData(null, command, null, 0, 0);
+                if (bt.contains(bt.root, temp.hashCode())) {
+                    System.out.println("yayyy found something");
+                    System.out.println("Type a business id to see if it is contained in BTree");
+                    command = kb.nextLine();
+                } else {
+                    System.out.println("this id doesnt exist");
+                    System.out.println("Type a business id to see if it is contained in BTree");
+                    command = kb.nextLine();
+                }
+            }
 
 
 
