@@ -62,7 +62,7 @@ public class BTree implements java.io.Serializable {
     boolean contains(Node n, /*int x*/ YelpData yd) throws Exception{
         int i = 0;
 
-        //find where the yelpdata would be in the tree
+        //this below works for everything except if the yelpdata value is at the far right end of the child nodes
         while (i < n.currentNumberOfKeys && yd.hashCode() > n.keys[i].hashCode()) {
             i++;
         }
@@ -76,6 +76,8 @@ public class BTree implements java.io.Serializable {
             //search the appropriate child node and search it
             return contains(read(n.children[i]), yd);
         }
+
+
     }
 
 
