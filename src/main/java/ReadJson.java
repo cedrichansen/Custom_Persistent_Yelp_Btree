@@ -44,7 +44,7 @@ class ReadJson {
 
                 //add categories from json to object
                 yd.categories.addAll(ca);
-
+                yd.numCategories = yd.categories.size();
                 //print contents of object
                 //System.out.println(yd.toString());
 

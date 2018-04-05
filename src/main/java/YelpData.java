@@ -10,7 +10,7 @@ public class YelpData implements Serializable{
     double lattitude, longitude;
     double similarity;
     ArrayList<String> categories;
-    int hash;
+    int hash,numCategories;
 
 
     public YelpData(String n, String i, String c , double la, double lo) {
@@ -20,9 +20,22 @@ public class YelpData implements Serializable{
             lattitude = la;
             longitude = lo;
             categories = new ArrayList<String>();
+            numCategories = 0;
             similarity = 999999;
             hash = Math.abs(id.hashCode());
     }
+    /*
+    public YelpData(){
+        name = null;
+        id = null;
+        city = null;
+        lattitude = 0;
+        longitude = 0;
+        categories = new ArrayList<String>();
+        numCategories = 0;
+        similarity = 999999;
+        hash = Math.abs(id.hashCode());
+    }*/
 
     public String getName(){
         return name;
