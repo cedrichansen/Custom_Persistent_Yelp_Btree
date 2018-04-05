@@ -74,7 +74,7 @@ public class YelpData implements Serializable{
     @Override
     public String toString(){
         return "name: "+  name + " id: " + id + " City: " + city + " latitude: "+ lattitude + " longitude: " + longitude +
-                " categories: " + this.getCategories() + "similarity" + similarity;
+                " categories: " + this.getCategories() + "hash: "+ this.hashCode() + "similarity" + similarity;
     }
 
 

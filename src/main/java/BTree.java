@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 
 public class BTree implements java.io.Serializable {
 
@@ -61,6 +62,7 @@ public class BTree implements java.io.Serializable {
     boolean contains(Node n, /*int x*/ YelpData yd) throws Exception{
         int i = 0;
 
+        //find where the yelpdata would be in the tree
         while (i < n.currentNumberOfKeys && yd.hashCode() > n.keys[i].hashCode()) {
             i++;
         }
@@ -114,7 +116,7 @@ public class BTree implements java.io.Serializable {
             }
 
             i++;
-            Node temp = read(x.children[i]); // figure out why children arent being added for a certain node
+            Node temp = read(x.children[i]);
 
             if (temp.currentNumberOfKeys == (2 * K - 1)) {
                 split(x, temp);
@@ -266,40 +268,44 @@ public class BTree implements java.io.Serializable {
                 // yelpdate iobject that was puyt ibn the nodes
                 //make sure to refcord the number of byte in the byte buffer so i know
                 //when to stop reading and not to get an overflow
-                YelpData yd = new YelpData(null, null, null, 0, 0);
+               //YelpData yd = new YelpData(null, null, null, 0, 0); // crashes because itll try to do math.abs(null) for int hash
+
 
                 //read name
                 int nameLen = bb.getInt();
                 byte [] nameBuf = new byte[nameLen];
                 bb.get(nameBuf);
-                yd.name = new String(nameBuf);
+                String name = new String(nameBuf);
 
                 //read id
                 int idLen = bb.getInt();
                 byte [] idBuf = new byte[idLen];
                 bb.get(idBuf);
-                yd.id = new String(idBuf);
+                String id = new String(idBuf);
 
                 //get the city
                 int cityLen = bb.getInt();
                 byte [] cityBuf = new byte[cityLen];
                 bb.get(cityBuf);
-                yd.city = new String(cityBuf);
+                String city = new String(cityBuf);
 
-                yd.lattitude = bb.getDouble();
-                yd.longitude = bb.getDouble();
+                Double lattitude = bb.getDouble();
+                Double longitude = bb.getDouble();
 
-                yd.numCategories = bb.getInt();
+                int numCategories = bb.getInt();
+                ArrayList<String> categories = new ArrayList<String>();
 
                 //get all of the categories
-                for (int k = 0; k<yd.numCategories; k++){
+                for (int k = 0; k<numCategories; k++){
                     int currCatLen = bb.getInt();
                     byte [] catBuf = new byte[currCatLen];
                     bb.get(catBuf);
-                    yd.categories.add(new String(catBuf));
+                    categories.add(new String(catBuf));
                 }
 
                 //once everything has been read from the file, add the object to the node
+                YelpData yd = new YelpData(name, id, city, lattitude, longitude);
+                yd.categories = categories;
                 temp.keys[i] = yd;
             }
 
