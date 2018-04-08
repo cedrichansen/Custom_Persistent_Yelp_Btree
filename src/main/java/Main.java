@@ -14,12 +14,12 @@ public class Main {
 
         try {
 
-
+            // ---------------------------------------------------------------------------------
+            // section below serves for the initial add of items into the btree
             String yelpFile = "../business.json";
             ReadJson rj = new ReadJson();
             ArrayList<YelpData> businesses = new ArrayList<YelpData>();
             HashTable ht = rj.readToHash(yelpFile);
-
             for (int i = 0; i<ht.table.length; i++) {
                 if (ht.table[i] != null) {
                     for (int j = 0; j<ht.table[i].size(); j++) {
@@ -27,20 +27,16 @@ public class Main {
                     }
                 }
             }
-
-            System.out.println("done reading to the hashtable");
-            System.out.println("current ht size is: " + ht.table.length);
-            System.out.println();
-
             BTree bt = new BTree();
-
             for (int i = 0; i</*169999*/ 100000; i++) {
                 System.out.println("Adding item: " + i);
                 bt.insert(businesses.get(i));
             }
-
             bt.writeRoot();
 
+
+            //------------------------------------------------------------------------------------
+            // once everything has been written to file, only the part below is necessary
 
 
             BTree bt2 = BTree.readRoot();
@@ -63,12 +59,7 @@ public class Main {
                     YelpDataIdInput = kb.nextLine();
                 }
             }
-
-        // try with jUdkAoyuXqCjCjkP2zzD0w id
-
-
-
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
