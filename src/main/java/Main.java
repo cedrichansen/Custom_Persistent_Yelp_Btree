@@ -13,6 +13,8 @@ public class Main {
         Scanner kb = new Scanner(System.in);
 
         try {
+
+
             String yelpFile = "../business.json";
             ReadJson rj = new ReadJson();
             ArrayList<YelpData> businesses = new ArrayList<YelpData>();
@@ -31,12 +33,17 @@ public class Main {
             System.out.println();
 
             BTree bt = new BTree();
-            //bt.insert(ht.table[3].get(0).hashCode());
 
             for (int i = 0; i</*169999*/ 100000; i++) {
                 System.out.println("Adding item: " + i);
                 bt.insert(businesses.get(i));
             }
+
+            bt.writeRoot();
+
+
+
+            BTree bt2 = BTree.readRoot();
 
 
             System.out.println("\ndone adding stuff to the btree\n");
@@ -44,7 +51,7 @@ public class Main {
             System.out.println("Type a business id to see if it is contained in BTree");
             String YelpDataIdInput = kb.nextLine();
             while (true) {
-                YelpData searched = bt.search(bt.root,new YelpData(null, YelpDataIdInput, null, 0, 0) );
+                YelpData searched = bt2.search(bt2.root,new YelpData(null, YelpDataIdInput, null, 0, 0) );
                 if (searched != null) {
                     System.out.println("yayyy found something\n");
                     System.out.println(searched.toString() + "\n");

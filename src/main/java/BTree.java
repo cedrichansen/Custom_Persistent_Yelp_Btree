@@ -7,12 +7,13 @@ import java.util.ArrayList;
 public class BTree implements java.io.Serializable {
 
     static final String btreeFile = "Btree"; //file to keep track of B tree root and constants
+    static final String nodesFile = "Nodes";
     static final int K = 8;  //constant used throughout the entire Btree
     static final int nodeSize = 4095; // to keep track of where different nodes are in the file
     Node root;
     int totalNumberOfNodes;
 
-    class Node implements java.io.Serializable {
+    static class Node implements java.io.Serializable {
         int currentNumberOfChildren;
         int currentNumberOfKeys;
         YelpData[] keys;
@@ -190,10 +191,76 @@ public class BTree implements java.io.Serializable {
 
     }
 
+    //write root info to btree file
+    void writeRoot() throws IOException{
+        RandomAccessFile btf = new RandomAccessFile(btreeFile, "rw");
+        btf.seek(0);
+        FileChannel fc = btf.getChannel();
+        ByteBuffer bb = ByteBuffer.allocate(nodeSize*2);
+
+        //write total number of nodes to the file
+        bb.putInt(totalNumberOfNodes);
+
+        bb.putInt(root.leaf);
+        bb.putLong(root.nodeID);
+
+        bb.putInt(root.currentNumberOfKeys);
+        for (int i = 0; i<root.currentNumberOfKeys; i++){
+
+            YelpData current = root.keys[i];
+
+            //write the name of the current yelp object
+            byte [] name = current.name.getBytes();
+            bb.putInt(name.length);
+            bb.put(name);
+
+            //write the id of current yelpObject
+            byte [] id = current.id.getBytes();
+            bb.putInt(id.length);
+            bb.put(id);
+
+            //write city
+            byte [] city = current.city.getBytes();
+            bb.putInt(city.length);
+            bb.put(city);
+
+            //add lat and long
+            bb.putDouble(current.lattitude);
+            bb.putDouble(current.longitude);
+
+
+            String [] categories = new String [current.categories.size()];
+            current.categories.toArray(categories);
+            bb.putInt(current.numCategories);
+
+            // add categories for each yelpdata item
+            for (int j = 0; j<current.numCategories; j++){
+                byte[] catBytes = current.categories.get(j).getBytes();
+                bb.putInt(catBytes.length);
+                bb.put(catBytes);
+            }
+
+        }
+
+        bb.putInt(root.currentNumberOfChildren);
+        for (int i = 0; i<root.currentNumberOfChildren; i++){
+            bb.putLong(root.children[i]);
+        }
+
+
+        bb.flip();
+        fc.write(bb);
+        bb.clear();
+        fc.close();
+        btf.close();
+
+
+    }
+
 
     void write(Node n) throws IOException{
         try{
-            RandomAccessFile file = new RandomAccessFile(btreeFile, "rw");
+            RandomAccessFile file = new RandomAccessFile(nodesFile, "rw");
             file.seek(n.nodeID*nodeSize);
             FileChannel fc = file.getChannel();
             ByteBuffer bb = ByteBuffer.allocate(nodeSize);
@@ -257,12 +324,93 @@ public class BTree implements java.io.Serializable {
     }
 
 
+    static BTree readRoot() throws Exception{
+        try {
+            Node temp = new Node(0);
+            RandomAccessFile btf = new RandomAccessFile(btreeFile, "rw");
+            btf.seek(0);
+            FileChannel fc = btf.getChannel();
+            ByteBuffer bb = ByteBuffer.allocate(nodeSize *2);
+            fc.read(bb);
+            bb.flip();
+
+            BTree bt = new BTree();
+            bt.root = temp;
+            bt.totalNumberOfNodes = bb.getInt();
+
+            temp.leaf = bb.getInt();
+            temp.nodeID = bb.getLong();
+
+            temp.currentNumberOfKeys = bb.getInt(); //recover keys
+            for (int i = 0; i< temp.currentNumberOfKeys; i++) {
+                //recover all info that was written for every single
+                // yelpdate iobject that was puyt ibn the nodes
+                //make sure to refcord the number of byte in the byte buffer so i know
+                //when to stop reading and not to get an overflow
+                //YelpData yd = new YelpData(null, null, null, 0, 0); // crashes because itll try to do math.abs(null) for int hash
+
+
+                //read name
+                int nameLen = bb.getInt();
+                byte [] nameBuf = new byte[nameLen];
+                bb.get(nameBuf);
+                String name = new String(nameBuf);
+
+                //read id
+                int idLen = bb.getInt();
+                byte [] idBuf = new byte[idLen];
+                bb.get(idBuf);
+                String id = new String(idBuf);
+
+                //get the city
+                int cityLen = bb.getInt();
+                byte [] cityBuf = new byte[cityLen];
+                bb.get(cityBuf);
+                String city = new String(cityBuf);
+
+                Double lattitude = bb.getDouble();
+                Double longitude = bb.getDouble();
+
+                int numCategories = bb.getInt();
+                ArrayList<String> categories = new ArrayList<String>();
+
+                //get all of the categories
+                for (int k = 0; k<numCategories; k++){
+                    int currCatLen = bb.getInt();
+                    byte [] catBuf = new byte[currCatLen];
+                    bb.get(catBuf);
+                    categories.add(new String(catBuf));
+                }
+
+                //once everything has been read from the file, add the object to the node
+                YelpData yd = new YelpData(name, id, city, lattitude, longitude);
+                yd.categories = categories;
+                temp.keys[i] = yd;
+            }
+
+            temp.currentNumberOfChildren = bb.getInt(); //recover children
+            for (int i = 0; i<temp.currentNumberOfChildren; i++){
+                temp.children[i] = bb.getLong();
+            }
+
+            bb.clear();
+            fc.close();
+            btf.close();
+            return bt;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     //returns a node full of yelpData objects
     Node read(long x) throws Exception{
         try {
 
             Node temp = new Node(0);
-            RandomAccessFile file = new RandomAccessFile(btreeFile, "rw");
+            RandomAccessFile file = new RandomAccessFile(nodesFile, "rw");
             file.seek(x*nodeSize);
             FileChannel fc = file.getChannel();
             ByteBuffer bb = ByteBuffer.allocate(nodeSize);
