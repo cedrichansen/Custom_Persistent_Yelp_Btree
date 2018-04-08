@@ -45,7 +45,7 @@ public class BTree implements java.io.Serializable {
     YelpData search(Node n, YelpData yd) throws Exception {
         int i = 0;
 
-        while (i < n.currentNumberOfKeys && yd.hashCode() > n.keys[i].hashCode()) {
+        while (i < n.currentNumberOfKeys -1 && yd.hashCode() > n.keys[i].hashCode()) {
             i++;
         }
 
@@ -55,7 +55,13 @@ public class BTree implements java.io.Serializable {
             return null;
         } else {
             //search the appropriate child node and search it
-            return search(read(n.children[i]), yd);
+            if (yd.hashCode() < n.keys[i].hashCode()){
+                return search(read(n.children[i]), yd);
+            } else {
+                //look at child node with biggest value
+                return search(read(n.children[i+1]), yd);
+            }
+
         }
     }
 
@@ -63,10 +69,9 @@ public class BTree implements java.io.Serializable {
         int i = 0;
 
         //this below works for everything except if the yelpdata value is at the far right end of the child nodes
-        while (i < n.currentNumberOfKeys && yd.hashCode() > n.keys[i].hashCode()) {
+        while (i < n.currentNumberOfKeys - 1  && yd.hashCode() > n.keys[i].hashCode()) {
             i++;
         }
-
         //just look to see if id matches (easier to search that way)
         if (i <= n.currentNumberOfKeys && yd.hashCode() == n.keys[i].hashCode()) {
             return true;
@@ -74,10 +79,12 @@ public class BTree implements java.io.Serializable {
             return false;
         } else {
             //search the appropriate child node and search it
-            return contains(read(n.children[i]), yd);
+            if (yd.hashCode() < n.keys[i].hashCode()) {
+                return contains(read(n.children[i]), yd);
+            } else {
+                return contains(read(n.children[i+1]), yd);
+            }
         }
-
-
     }
 
 

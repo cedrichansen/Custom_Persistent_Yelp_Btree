@@ -44,11 +44,10 @@ public class Main {
             System.out.println("Type a business id to see if it is contained in BTree");
             String YelpDataIdInput = kb.nextLine();
             while (true) {
-                YelpData temp = new YelpData(null, YelpDataIdInput, null, 0, 0);
-                if (bt.contains(bt.root, temp)) {
-                    System.out.println("yayyy found something");
-                    YelpData curr = bt.search(bt.root, temp );
-                    System.out.println(curr.toString());
+                YelpData searched = bt.search(bt.root,new YelpData(null, YelpDataIdInput, null, 0, 0) );
+                if (searched != null) {
+                    System.out.println("yayyy found something\n");
+                    System.out.println(searched.toString() + "\n");
                     System.out.println("Type a business id to see if it is contained in BTree");
                     YelpDataIdInput = kb.nextLine();
                 } else {
