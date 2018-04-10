@@ -57,7 +57,12 @@ public class BTree implements java.io.Serializable {
         } else {
             //search the appropriate child node and search it
             if (yd.hashCode() < n.keys[i].hashCode()){
-                return search(read(n.children[i]), yd);
+                if (n.children[i] != 0) {
+                    return search(read(n.children[i]), yd);
+                } else {
+                    // node with id 0 is a null node
+                    return null;
+                }
             } else {
                 //look at child node with biggest value
                 return search(read(n.children[i+1]), yd);
@@ -66,7 +71,7 @@ public class BTree implements java.io.Serializable {
         }
     }
 
-    boolean contains(Node n, /*int x*/ YelpData yd) throws Exception{
+    boolean contains(Node n, YelpData yd) throws Exception{
         int i = 0;
 
         //this below works for everything except if the yelpdata value is at the far right end of the child nodes
@@ -89,7 +94,7 @@ public class BTree implements java.io.Serializable {
     }
 
 
-    void insert(/*int k*/ YelpData yd) throws Exception {
+    void insert(YelpData yd) throws Exception {
         Node r = root;
         if (root.currentNumberOfKeys == 2 * K - 1) {
             totalNumberOfNodes++;
@@ -107,7 +112,7 @@ public class BTree implements java.io.Serializable {
     }
 
 
-    void insertNotFull(Node x, /*int k*/ YelpData yd) throws Exception {
+    void insertNotFull(Node x, YelpData yd) throws Exception {
 
         int i = x.currentNumberOfKeys-1;
         if (x.leaf == 1) {
