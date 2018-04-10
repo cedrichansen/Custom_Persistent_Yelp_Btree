@@ -30,7 +30,7 @@ public class Main {
             Means kMeans = new Means();
 
             for (YelpData yd: list){
-                Point p = new Point(yd.lattitude, yd.longitude, yd.id);
+                Point p = new Point(yd.lattitude, yd.longitude, yd);
                 kMeans.addPoint(p);
             }
 
@@ -39,6 +39,8 @@ public class Main {
             return kMeans;
 
         }
+
+
 
 
     public static void main(String[] args) {

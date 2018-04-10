@@ -115,7 +115,7 @@ public class Means {
         return r;
     }
 
-    public void calculate(){
+    void calculate(){
         boolean finished = false;
 
         int l =0;
@@ -140,6 +140,10 @@ public class Means {
             l++;
         }
     }
+
+    
+
+
 
 
 

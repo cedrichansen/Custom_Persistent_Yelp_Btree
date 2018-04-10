@@ -3,16 +3,17 @@ public class Point {
     double lattitude, longitude;
     String name;
     int cluster;
+    YelpData yd;
 
     public Point(double x, double y) {
         longitude = x;
         lattitude = y;
     }
 
-    public Point (double x, double y, String n){
+    public Point (double x, double y, YelpData yd){
         lattitude = x;
         longitude = y;
-        name = n;
+        this.yd = yd;
     }
 
     public double getDistance(Point center){
@@ -21,7 +22,7 @@ public class Point {
     }
 
     public String toString() {
-        return "[" + lattitude + "]" + "[" + longitude + "]"  + name;
+        return "[" + lattitude + "]" + "[" + longitude + "]"  + yd.toString();
     }
 
 }
