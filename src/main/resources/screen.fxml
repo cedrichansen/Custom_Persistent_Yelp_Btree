@@ -26,16 +26,17 @@
             <columns>
                 <TableColumn fx:id="businessName" minWidth="-Infinity" prefWidth="183.36223793029785" text="Business name" />
                 <TableColumn fx:id="city" prefWidth="110.58377075195312" text="City" />
-                <TableColumn fx:id="lattitude" prefWidth="854.0" text="Lattitude" />
-                <TableColumn fx:id="longitude" prefWidth="854.0" text="Longitude" />
+                <TableColumn fx:id="id" prefWidth="110.58377075195312" text="ID" />
+                <TableColumn fx:id="lattitude" prefWidth="200" text="Lattitude" />
+                <TableColumn fx:id="longitude" prefWidth="200" text="Longitude" />
             </columns>
         </TableView>
         <TableView fx:id="similarTable" layoutX="414.0" layoutY="541.0" prefHeight="200.0" prefWidth="761.0">
             <columns>
                 <TableColumn fx:id="similarName" prefWidth="150.0" text="Business name" />
                 <TableColumn fx:id="similarCity" minWidth="0.0" prefWidth="128.0" text="City" />
-                <TableColumn fx:id="SimilarLattitude" minWidth="0.0" prefWidth="481.0" text="Lattitude" />
-                <TableColumn fx:id="SimilarLongitude" minWidth="0.0" prefWidth="481.0" text="Longitude" />
+                <TableColumn fx:id="SimilarLattitude" minWidth="0.0" prefWidth="127" text="Lattitude" />
+                <TableColumn fx:id="SimilarLongitude" minWidth="0.0" prefWidth="127" text="Longitude" />
             </columns>
         </TableView>
         <Label layoutX="713.0" layoutY="505.0" prefHeight="28.0" prefWidth="176.0" text="Cluster Items">
@@ -43,5 +44,6 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Label>
+        
     </children>
 </AnchorPane>

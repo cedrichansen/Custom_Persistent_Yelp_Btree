@@ -28,6 +28,9 @@ public class Controller {
     @FXML
     TableColumn<YelpData, String> longitude;
     @FXML
+    TableColumn<YelpData,String> id;
+
+    @FXML
     TableView<YelpData> similarTable;
     @FXML
     TableColumn<YelpData, String> similarName;
@@ -35,6 +38,8 @@ public class Controller {
     TableColumn<YelpData, String> similarCity;
     @FXML
     TableColumn<YelpData, String> SimilarLongitude;
+    @FXML
+    TableColumn <YelpData, String> SimilarLattitude;
 
 
 
@@ -43,7 +48,7 @@ public class Controller {
         for ( int i = 0; i<similarTable.getItems().size(); i++) {
             similarTable.getItems().clear();
         }
-        YelpData test = new YelpData(null, searchField.getText(), null, 0,0);
+        YelpData test = new YelpData(null, table.getSelectionModel().getSelectedItem().id, null, 0,0);
 
         BTree bt = BTree.readRoot();
         YelpData yd = bt.search(bt.root, test);
@@ -69,7 +74,8 @@ public class Controller {
                 //similarName.setCellValueFactory(new PropertyValueFactory<>("name"));
                 similarName.setCellValueFactory(new PropertyValueFactory<YelpData, String>("name"));
                 similarCity.setCellValueFactory(new PropertyValueFactory<YelpData, String>("city"));
-                SimilarLongitude.setCellValueFactory(new PropertyValueFactory<YelpData, String>("categories"));
+                SimilarLattitude.setCellValueFactory(new PropertyValueFactory<YelpData, String>("lattitude"));
+                SimilarLongitude.setCellValueFactory(new PropertyValueFactory<YelpData, String>("longitude"));
                 similarTable.getItems().addAll(data);
             }
 
@@ -105,6 +111,10 @@ public class Controller {
 
         city.setCellValueFactory(
                 new PropertyValueFactory<YelpData, String>("city"));
+
+        id.setCellValueFactory(
+                new PropertyValueFactory<YelpData, String>("id")
+        );
 
         lattitude.setCellValueFactory(
                 new PropertyValueFactory<YelpData, String>("lattitude"));
