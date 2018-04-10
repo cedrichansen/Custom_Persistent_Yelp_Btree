@@ -1,5 +1,6 @@
 import javafx.scene.Parent;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Means {
@@ -141,9 +142,28 @@ public class Means {
         }
     }
 
-    
 
 
+    ArrayList<YelpData> getClusterFromYD(YelpData yd){
+        ArrayList<YelpData> ydInSameCluster = new ArrayList<YelpData>();
+        for (Cluster currentCluster: clusters) {
+            for (Point p: currentCluster.pointsInCluster){
+                if (p.yd.hash == yd.hash && p.yd.name.equals(yd.name)) {
+                    ydInSameCluster = this.addClusterYD(currentCluster);
+                }
+            }
+        }
+        return ydInSameCluster;
+    }
+
+    ArrayList<YelpData> addClusterYD(Cluster c) {
+        ArrayList<YelpData> x = new ArrayList<YelpData>();
+        for (Point p: c.pointsInCluster) {
+            x.add(p.yd);
+            System.out.println(p.yd.toString());
+        }
+        return x;
+    }
 
 
 

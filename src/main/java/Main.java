@@ -43,6 +43,8 @@ public class Main {
 
 
 
+
+
     public static void main(String[] args) {
 
         Scanner kb = new Scanner(System.in);
@@ -63,9 +65,10 @@ public class Main {
             while (true) {
                 YelpData searched = bt2.search(bt2.root, new YelpData(null, YelpDataIdInput, null, 0, 0));
                 if (searched != null) {
-                    System.out.println("yayyy found something\n");
                     System.out.println(searched.toString() + "\n");
-                    System.out.println("Type a business id to see if it is contained in BTree");
+                    System.out.println("Other items in the same cluster: ");
+                    ArrayList<YelpData> sameCluster = means.getClusterFromYD(searched);
+                    System.out.println("\nType a business id to see if it is contained in BTree");
                     YelpDataIdInput = kb.nextLine();
                 } else {
                     System.out.println("this id doesnt exist");
