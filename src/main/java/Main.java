@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,9 +17,27 @@ public class Main {
                 bt.insert(businesses.get(i));
             }
                 bt.writeRoot();
+
+                System.out.println("\ndone adding stuff to the btree\n");
+
             } catch(Exception e){
                 e.printStackTrace();
             }
+        }
+
+
+        static Means createClusters(ArrayList<YelpData> list){
+            Means kMeans = new Means();
+
+            for (YelpData yd: list){
+                Point p = new Point(yd.lattitude, yd.longitude, yd.id);
+                kMeans.addPoint(p);
+            }
+
+            kMeans.initializeMeans();
+            kMeans.calculate();
+            return kMeans;
+
         }
 
 
@@ -31,12 +48,13 @@ public class Main {
         try {
 
             // this line does the writing of all of the btree objects upon initial write
+
             //makeTree();
 
+            ArrayList<YelpData> b = new ReadJson().readFromJson("../business.json");
+            Means means = createClusters(b);
+
             BTree bt2 = BTree.readRoot();
-
-
-            System.out.println("\ndone adding stuff to the btree\n");
 
             System.out.println("Type a business id to see if it is contained in BTree");
             String YelpDataIdInput = kb.nextLine();

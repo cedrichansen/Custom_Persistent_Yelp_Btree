@@ -92,7 +92,7 @@ class ReadJson {
                     categories.add(jarr.get(j).toString());
                 }
                 yd.categories.addAll(categories);
-                System.out.println("loading item" + i);
+                System.out.println("loading item " + i);
                 businesses.add(yd);
             }
 
