@@ -107,11 +107,20 @@ public class Means {
         double min = Double.MAX_VALUE;
         Point r = null;
         for (Point x : points){
-            double distance = p.getDistance(x);
-            if (distance <min){
-                r = p;
-                min = distance;
+
+            //make sure same point isnt the closest point to itself
+            if (p.yd.lattitude != x.yd.lattitude) {
+                if (p.yd.longitude != x.yd.longitude) {
+
+                    double distance = p.getDistance(x);
+                    if (distance < min) {
+                        r = x;
+                        min = distance;
+                    }
+                }
+
             }
+
         }
         return r;
     }

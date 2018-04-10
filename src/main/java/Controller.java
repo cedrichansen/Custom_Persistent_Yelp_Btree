@@ -41,6 +41,19 @@ public class Controller {
     @FXML
     TableColumn <YelpData, String> SimilarLattitude;
 
+    @FXML
+    TableView<YelpData> mostSimilarTable;
+    @FXML
+    TableColumn<YelpData, String> mostSimilarName;
+    @FXML
+    TableColumn<YelpData, String> mostSimilarCity;
+    @FXML
+    TableColumn<YelpData, String> mostSimilarLattitude;
+    @FXML
+    TableColumn<YelpData, String> mostSimilarLongitude;
+
+
+
 
 
     public void searchCluster(ActionEvent event) throws Exception {
@@ -77,6 +90,21 @@ public class Controller {
                 SimilarLattitude.setCellValueFactory(new PropertyValueFactory<YelpData, String>("lattitude"));
                 SimilarLongitude.setCellValueFactory(new PropertyValueFactory<YelpData, String>("longitude"));
                 similarTable.getItems().addAll(data);
+
+
+                Point p = new Point(yd.lattitude, yd.longitude, yd);
+                Point closest = means.getClosestPoint(p);
+
+                ArrayList<YelpData> closestPoint = new ArrayList<YelpData>();
+                closestPoint.add(closest.yd);
+                ObservableList<YelpData> close = FXCollections.observableArrayList(closestPoint);
+
+                mostSimilarName.setCellValueFactory(new PropertyValueFactory<YelpData, String>("name"));
+                mostSimilarCity.setCellValueFactory(new PropertyValueFactory<YelpData, String>("city"));
+                mostSimilarLattitude.setCellValueFactory(new PropertyValueFactory<YelpData, String>("lattitude"));
+                mostSimilarLongitude.setCellValueFactory(new PropertyValueFactory<YelpData, String>("longitude"));
+                mostSimilarTable.getItems().addAll(close);
+
             }
 
 

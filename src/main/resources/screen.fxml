@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="771.0" prefWidth="1200" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <Button fx:id="searchButton" layoutX="25.0" layoutY="420.0" mnemonicParsing="false" onAction="#searchCluster" prefHeight="28.0" prefWidth="1143.0" text="Find Cluster">
+        <Button fx:id="searchButton" layoutX="26.0" layoutY="364.0" mnemonicParsing="false" onAction="#searchCluster" prefHeight="28.0" prefWidth="1143.0" text="Find Cluster">
         <font>
             <Font size="14.0" /></font>
     </Button>
@@ -17,7 +17,7 @@
             <font>
                 <Font name="System Bold" size="19.0" />
             </font></Label>
-        <TableView fx:id="table" editable="true" layoutX="25.0" layoutY="60.0" prefHeight="350.0" prefWidth="1150.0" tableMenuButtonVisible="true">
+        <TableView fx:id="table" editable="true" layoutX="25.0" layoutY="60.0" prefHeight="292.0" prefWidth="1150.0" tableMenuButtonVisible="true">
             <columns>
                 <TableColumn fx:id="businessName" minWidth="-Infinity" prefWidth="234.0" text="Business name" />
                 <TableColumn fx:id="city" prefWidth="129.0" text="City" />
@@ -26,12 +26,21 @@
                 <TableColumn fx:id="longitude" prefWidth="340.0" text="Longitude" />
             </columns>
         </TableView>
-        <TableView fx:id="similarTable" layoutX="25.0" layoutY="461.0" prefHeight="280.0" prefWidth="1150.0">
+        <TableView fx:id="similarTable" layoutX="25.0" layoutY="396.0" prefHeight="246.0" prefWidth="1150.0">
             <columns>
                 <TableColumn fx:id="similarName" prefWidth="150.0" text="Business name" />
                 <TableColumn fx:id="similarCity" minWidth="0.0" prefWidth="457.0" text="City" />
                 <TableColumn fx:id="SimilarLattitude" minWidth="0.0" prefWidth="168.0" text="Lattitude" />
                 <TableColumn fx:id="SimilarLongitude" minWidth="0.0" prefWidth="374.0" text="Longitude" />
+            </columns>
+        </TableView>
+
+        <TableView fx:id="mostSimilarTable" layoutX="22.0" layoutY="654.0" prefHeight="87.0" prefWidth="1150.0">
+            <columns>
+                <TableColumn fx:id="mostSimilarName" prefWidth="150.0" text="Business name" />
+                <TableColumn fx:id="mostSimilarCity" minWidth="0.0" prefWidth="457.0" text="City" />
+                <TableColumn fx:id="mostSimilarLattitude" minWidth="0.0" prefWidth="168.0" text="Lattitude" />
+                <TableColumn fx:id="mostSimilarLongitude" minWidth="0.0" prefWidth="374.0" text="Longitude" />
             </columns>
         </TableView>
         
