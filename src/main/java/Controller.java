@@ -61,7 +61,7 @@ public class Controller {
         for ( int i = 0; i<similarTable.getItems().size(); i++) {
             similarTable.getItems().clear();
             mostSimilarTable.getItems().clear();
-            
+
         }
         YelpData test = new YelpData(null, table.getSelectionModel().getSelectedItem().id, null, 0,0);
 

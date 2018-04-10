@@ -1,23 +1,11 @@
 import javafx.application.Application;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.swing.text.Element;
-import javax.swing.text.TabableView;
-import javax.swing.text.TableView;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.Arrays; //simply to have easy sorted arrays
 
 
 public class Main extends Application{
@@ -75,37 +63,11 @@ public class Main extends Application{
 
         try {
 
-            // this line does the writing of all of the btree objects upon initial write
-
+            // this line below does the writing of all of the btree objects upon initial write
             //makeTree();
-
-            /*ArrayList<YelpData> b = new ReadJson().readFromJson("../business.json");
-            Means means = createClusters(b);
-
-            BTree bt2 = BTree.readRoot();
-            */
 
             launch(args);
 
-
-            /*
-            System.out.println("Type a business id to see if it is contained in BTree");
-            String YelpDataIdInput = kb.nextLine();
-            while (true) {
-                YelpData searched = bt2.search(bt2.root, new YelpData(null, YelpDataIdInput, null, 0, 0));
-                if (searched != null) {
-                    System.out.println(searched.toString() + "\n");
-                    System.out.println("Other items in the same cluster: ");
-                    ArrayList<YelpData> sameCluster = means.getClusterFromYD(searched);
-                    System.out.println("\nType a business id to see if it is contained in BTree");
-                    YelpDataIdInput = kb.nextLine();
-                } else {
-                    System.out.println("this id doesnt exist");
-                    System.out.println("Type a business id to see if it is contained in BTree");
-                    YelpDataIdInput = kb.nextLine();
-                }
-            }
-            */
 
 
         } catch (Exception e) {

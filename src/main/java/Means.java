@@ -129,7 +129,6 @@ public class Means {
         boolean finished = false;
 
         int l =0;
-        double bestDistance = Double.MAX_VALUE;
         while (!finished){
             System.out.println("calculating.... " + l);
             clearClusters();
