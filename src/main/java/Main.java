@@ -1,8 +1,26 @@
+import javafx.application.Application;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import javax.swing.text.Element;
+import javax.swing.text.TabableView;
+import javax.swing.text.TableView;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Scanner;
+import java.util.Arrays; //simply to have easy sorted arrays
 
 
-public class Main {
+public class Main extends Application{
 
     static void makeTree() {
         try {
@@ -40,14 +58,20 @@ public class Main {
 
         }
 
-
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("screen.fxml"));
+        primaryStage.setTitle("CSC365 Hw02");
+        primaryStage.setScene(new Scene(root, 1200, 771));
+        primaryStage.show();
+    }
 
 
 
 
     public static void main(String[] args) {
 
-        Scanner kb = new Scanner(System.in);
+        //Scanner kb = new Scanner(System.in);
 
         try {
 
@@ -55,11 +79,16 @@ public class Main {
 
             //makeTree();
 
-            ArrayList<YelpData> b = new ReadJson().readFromJson("../business.json");
+            /*ArrayList<YelpData> b = new ReadJson().readFromJson("../business.json");
             Means means = createClusters(b);
 
             BTree bt2 = BTree.readRoot();
+            */
 
+            launch(args);
+
+
+            /*
             System.out.println("Type a business id to see if it is contained in BTree");
             String YelpDataIdInput = kb.nextLine();
             while (true) {
@@ -76,6 +105,8 @@ public class Main {
                     YelpDataIdInput = kb.nextLine();
                 }
             }
+            */
+
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -55,7 +55,7 @@ public class BTree implements java.io.Serializable {
         } else if (n.leaf == 1) { //if not found and its a leaf, then key does not exist
             return null;
         } else {
-            //search the appropriate child node and search it
+            //searchCluster the appropriate child node and searchCluster it
             if (yd.hashCode() < n.keys[i].hashCode()){
                 if (n.children[i] != 0) {
                     return search(read(n.children[i]), yd);
@@ -78,13 +78,13 @@ public class BTree implements java.io.Serializable {
         while (i < n.currentNumberOfKeys - 1  && yd.hashCode() > n.keys[i].hashCode()) {
             i++;
         }
-        //just look to see if id matches (easier to search that way)
+        //just look to see if id matches (easier to searchCluster that way)
         if (i <= n.currentNumberOfKeys && yd.hashCode() == n.keys[i].hashCode()) {
             return true;
         } else if (n.leaf == 1) { //if not found and its a leaf, then key does not exist
             return false;
         } else {
-            //search the appropriate child node and search it
+            //searchCluster the appropriate child node and searchCluster it
             if (yd.hashCode() < n.keys[i].hashCode()) {
                 return contains(read(n.children[i]), yd);
             } else {
